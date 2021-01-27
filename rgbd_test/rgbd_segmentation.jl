@@ -108,10 +108,10 @@ function segment_rgbd(img_path,depth_path,out_path,rgb_prior_multiplier,xyz_prio
     save(out_path, segemnated_image)
 end
 
-img_path = "apple_1_1_1_crop.png"
-depth_path = "apple_1_1_1_depthcrop.png"
-rgb_prior_multiplier = 30
+img_path = "desk_1_1.png"
+depth_path = "desk_1_1_depth.png"
+rgb_prior_multiplier = 10
 xy_prior_multiplier =1 
-nu =8
-segment_rgb(img_path,"rgb_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
+nu = 128
+# segment_rgb(img_path,"rgb_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
 segment_rgbd(img_path,depth_path,"rgbd_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
