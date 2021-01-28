@@ -5,12 +5,13 @@
 # Pkg.add("ImageIO")
 # Pkg.add("QuartzImageIO")
 # Pkg.add("ImageMagick")
-
+# include("depth_norm2.jl")
 using Images
+using CSV
 using Distributed
-
 using LinearAlgebra
 using Statistics
+using DelimitedFiles
 
 #Load the package on all workers
 # addprocs(4)
@@ -70,6 +71,7 @@ end
 function segment_rgbd(img_path,depth_path,out_path,rgb_prior_multiplier,xyz_prior_multiplier,nu)
     img = load(img_path)
     depth = load(depth_path)
+    # depth = Kinect_DepthNormalization(depth)
     #Change to channel view
     img_channels = channelview(img)
     rgb,x,y = size(img_channels)
@@ -108,10 +110,12 @@ function segment_rgbd(img_path,depth_path,out_path,rgb_prior_multiplier,xyz_prio
     save(out_path, segemnated_image)
 end
 
-img_path = "desk_1_1.png"
-depth_path = "desk_1_1_depth.png"
+img_path = "images/frame-000010.color.png"
+depth_path = "images/frame-000010.depth.png"
 rgb_prior_multiplier = 10
-xy_prior_multiplier =1 
-nu = 128
-# segment_rgb(img_path,"rgb_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
-segment_rgbd(img_path,depth_path,"rgbd_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
+xy_prior_multiplier = 1 
+nu = 32
+println("running..")
+segment_rgb(img_path,"rgb_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
+# segment_rgbd(img_path,depth_path,"rgbd_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
+
