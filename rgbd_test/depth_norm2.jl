@@ -87,6 +87,7 @@ function find_invalid(path, invalid_val)
     img = load()
      freq = count(x->x==invalid_val, img)
 end
+
 img = load("images/frame-000010.depth.png")
 img = Float32.(img)
 dt = fit(UnitRangeTransform, img)

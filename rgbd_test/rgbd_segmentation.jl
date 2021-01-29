@@ -7,6 +7,7 @@
 # Pkg.add("ImageMagick")
 # include("depth_norm2.jl")
 using Images
+using StatsBase
 using CSV
 using Distributed
 using LinearAlgebra
@@ -71,6 +72,10 @@ end
 function segment_rgbd(img_path,depth_path,out_path,rgb_prior_multiplier,xyz_prior_multiplier,nu)
     img = load(img_path)
     depth = load(depth_path)
+    #depth normalization
+    depth = Float32.(depth)
+    dt = StatsBase.fit(UnitRangeTransform, depth)
+    depth = StatsBase.transform(dt, depth)
     # depth = Kinect_DepthNormalization(depth)
     #Change to channel view
     img_channels = channelview(img)
@@ -112,10 +117,10 @@ end
 
 img_path = "images/frame-000010.color.png"
 depth_path = "images/frame-000010.depth.png"
-rgb_prior_multiplier = 10
+rgb_prior_multiplier = 30
 xy_prior_multiplier = 1 
-nu = 32
+nu = 64
 println("running..")
 segment_rgb(img_path,"rgb_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
-# segment_rgbd(img_path,depth_path,"rgbd_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
+segment_rgbd(img_path,depth_path,"rgbd_result.png",rgb_prior_multiplier,xy_prior_multiplier, nu)
 
