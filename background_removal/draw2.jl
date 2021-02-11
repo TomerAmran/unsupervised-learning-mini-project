@@ -4,7 +4,7 @@ b = GtkBox(:h)
 push!(b,c)
 set_gtk_property!(b,:expand,c,true)
 win = GtkWindow(b, "Canvas")
-
+print("hello")
 @guarded draw(c) do widget
     ctx = getgc(c)
     h = height(c)

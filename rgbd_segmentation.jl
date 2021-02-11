@@ -188,3 +188,9 @@ save("results/" * img_name * "/depth_map.png", img_resize(load(depth_path_vi)))
 segment_rgb(img_path, output_path * "rgb.png",rgb_prior_multiplier,xy_prior_multiplier, niw)
 segment_rgbd(img_path,depth_path,output_path * "rgbd.png",rgb_prior_multiplier,xy_prior_multiplier,niw)
 # segment_rgbd_with_seperate_depth_weight(img_path,depth_path,output_path * "rgbd_v2.png",rgb_prior_multiplier,xy_prior_multiplier,depth_prior_multiplier,niw)
+#alpha set how many clusters I want
+#הוא שיחק שם עם היחסים כי זה לא באותן יחידות
+# השונות אומרת לי כמה השפעה יש כי אם הגואסיין מאוד רחב זה כמעט פילוג אחיד
+# והפרטמר קאפה שהוא 0.5 זה כמה אני בטוח בניחוש ההתחלתי שנתתי
+#  מה עוד?
+# למשוך את התיקון של אור כדי למנוע את השגיאות הנומריות
